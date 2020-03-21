@@ -1,16 +1,28 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask import url_for, escape
 app = Flask(__name__)
+
+
+name = 'luxuanqing'
+movies = [
+    {'title': '心灵想要大声呼喊', 'year': '2015'},
+    {'title': '声之形', 'year': '2016'},
+    {'title': '烟花', 'year': '2017'},
+    {'title': '紫罗兰永恒花园外传：永远与自动手记人偶', 'year': '2019'}
+]
+
 
 @app.route('/')
 @app.route('/index')
 @app.route('/home')
-def hello():
-    return 'Welcome to My Watchlist!'
+def index():
+    return render_template('index.html', name=name, movies=movies)
+
 
 @app.route('/user/<name>')
 def user_page(name):
     return 'User: {}'.format(escape(name))
+
 
 @app.route('/test')
 def test_url_for():
